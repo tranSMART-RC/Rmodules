@@ -33,18 +33,37 @@ LineGraph.loader <- function(
 	  MEDIAN 	= median(VALUE)
 	)
 
+	#Step1
+	#Calculate NOD mean by for each CONCEPT_PATH in line.data
+	nodMeanByCPData <- ddply(line.data, .(CONCEPT_PATH),
+							 summarise,
+							 NODMEANBYCP	= mean(NOD)
+	)
+
+	#Step2
+	mergedData <-merge(dataOutput, nodMeanByCPData,by="CONCEPT_PATH")
+
+	#Step3
+	#order by NOD mean
+	graphData<-mergedData[with(mergedData, order(NODMEANBYCP)), ]
+
+
+
 	#Adjust the column names.
-	colnames(dataOutput) <- c('TIMEPOINT','GROUP','MEAN','SD','SE','MEDIAN')
+	colnames(graphData) <- c('TIMEPOINT','GROUP','MEAN','SD','SE','MEDIAN','NODMEANBYCP')
 
 	#Use a regular expression trim out the timepoint from the concept.
-	#dataOutput$TIMEPOINT <- str_extract(dataOutput$TIMEPOINT,"Week [0-9]+")
-	dataOutput$TIMEPOINT <- str_extract(dataOutput$TIMEPOINT,"(\\\\.+\\\\.+\\\\)+?$")
-	
+	#graphData$TIMEPOINT <- str_extract(graphData$TIMEPOINT,"Week [0-9]+")
+	graphData$TIMEPOINT <- str_extract(graphData$TIMEPOINT,"(\\\\.+\\\\.+\\\\)+?$")
+
 	#Convert the timepoint field to a factor.
-	dataOutput$TIMEPOINT <- factor(dataOutput$TIMEPOINT)
-		
+	graphData$TIMEPOINT <- factor(graphData$TIMEPOINT)
+	
+	#Reorder dataframe (factor levels) based on the NOD MEANS BY CP data field.
+	graphData <- transform(graphData, TIMEPOINT=reorder(TIMEPOINT, NODMEANBYCP))
+
 	#Convert the group field to a factor.
-	dataOutput$GROUP <- factor(dataOutput$GROUP)
+	graphData$GROUP <- factor(graphData$GROUP)
 	######################################################
 
 	######################################################
@@ -54,15 +73,15 @@ LineGraph.loader <- function(
 	if(graphType=="MERR")
 	{
 		limits <- aes(ymax = MEAN + SE, ymin = MEAN - SE)
-		
+
 		p <- ggplot(
-			data=dataOutput,
+			data=graphData,
 			aes(x=TIMEPOINT, 
 				y=MEAN,
 				group=GROUP, 
 				colour=GROUP
-				)
 			)
+		)
 
 	}
 
@@ -71,7 +90,7 @@ LineGraph.loader <- function(
 		limits <- aes(ymax = MEAN + SD, ymin = MEAN - SD)
 	
 		p <- ggplot(
-			data=dataOutput,
+			data=graphData,
 			aes(x=TIMEPOINT, 
 				y=MEAN,
 				group=GROUP, 
@@ -80,13 +99,13 @@ LineGraph.loader <- function(
 			)
 			
 	}
-	
+
 	if(graphType=="MEDER")
 	{
 		limits <- aes(ymax = MEDIAN + SE, ymin = MEDIAN - SE)
 		
 		p <- ggplot(
-			data=dataOutput,
+			data=graphData,
 			aes(x=TIMEPOINT, 
 				y=MEDIAN,
 				group=GROUP, 
@@ -94,36 +113,36 @@ LineGraph.loader <- function(
 				)
 			)
 	}	
-	
+
 	p <- p + geom_line(size=1.5) + geom_errorbar(limits,width=0.2) + scale_colour_brewer() 
-	
+
 	#This sets the color theme of the background/grid.
 	p <- p + theme_bw();
-	
+
 	#Set the text options for the axis.
 	p <- p + opts(axis.text.x = theme_text(size = 17,face="bold",angle=5));
 	p <- p + opts(axis.text.y = theme_text(size = 17,face="bold"));
-	
+
 	#Set the text options for the title.
 	p <- p + opts(axis.title.x = theme_text(vjust = -.5,size = 20,face="bold"));
 	p <- p + opts(axis.title.y = theme_text(vjust = .35,size = 20,face="bold",angle=90));
-	
+
 	#Set the legend attributes.
 	p <- p + opts(legend.title = theme_text(size = 20,face="bold"));
 	p <- p + opts(legend.text = theme_text(size = 15,face="bold"));
 	p <- p + opts(legend.title=theme_blank())
 
 	p <- p + geom_point(size=4);
-	
+
 	#This is the name of the output image file.
 	imageFileName <- paste(output.file,".png",sep="")
-	
+
 	#This initializes our image capture object.
 	CairoPNG(file=imageFileName, width=1200, height=600,units = "px")	
-	
+
 	#Printing actually puts the plot in the image.
 	print(p)
-	
+
 	#Turn of the graphics device to save the image.
 	dev.off()
 	######################################################

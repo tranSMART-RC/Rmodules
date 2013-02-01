@@ -17,7 +17,7 @@ concept.group=""
 	dataFile <- data.frame(read.delim(input.dataFile));
 
 	#Set the column names.
-	colnames(dataFile) <- c("PATIENT_NUM","SUBSET","CONCEPT_CODE","CONCEPT_PATH_SHORT","VALUE","CONCEPT_PATH")
+	colnames(dataFile) <- c("PATIENT_NUM","SUBSET","CONCEPT_CODE","CONCEPT_PATH_SHORT","VALUE","CONCEPT_PATH", "NOD")
 
 	splitData <- split(dataFile,dataFile$CONCEPT_PATH);
 
@@ -53,11 +53,11 @@ concept.group=""
 	#For each of the passed in concepts, append the rows onto the end of our temp matrix.
 	for(entry in splitConcept)
 	{
-	  tempConceptMatrix <- rbind(tempConceptMatrix,splitData[[entry]][c('PATIENT_NUM','CONCEPT_PATH','VALUE')])		
+	  tempConceptMatrix <- rbind(tempConceptMatrix,splitData[[entry]][c('PATIENT_NUM','CONCEPT_PATH','VALUE','NOD')])		
 	}
 	
 	#Add column names to our temp matrix.
-	colnames(tempConceptMatrix) <- c('PATIENT_NUM','CONCEPT_PATH','VALUE')
+	colnames(tempConceptMatrix) <- c('PATIENT_NUM','CONCEPT_PATH','VALUE','NOD')
 
 	yValueMatrix <- tempConceptMatrix
 	##########################################
@@ -84,10 +84,10 @@ concept.group=""
 	#A join between 2 data.tables X and Y is just X[Y].  This is much faster than merge().
 	##########################################
 	#Form a table of groups and y values.
-	finalData<-merge(yValueMatrix[c('PATIENT_NUM','CONCEPT_PATH','VALUE')],groupValueMatrix[c('PATIENT_NUM','VALUE')],by="PATIENT_NUM")
+	finalData<-merge(yValueMatrix[c('PATIENT_NUM','CONCEPT_PATH','VALUE', 'NOD')],groupValueMatrix[c('PATIENT_NUM','VALUE')],by="PATIENT_NUM")
 
 	#Create column names.
-	colnames(finalData) <- c('PATIENT_NUM','CONCEPT_PATH','VALUE','GROUP_VAR')
+	colnames(finalData) <- c('PATIENT_NUM','CONCEPT_PATH','VALUE','NOD','GROUP_VAR')
 
 	#We need MASS to dump the matrix to a file.
 	require(MASS)
