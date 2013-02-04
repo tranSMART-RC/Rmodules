@@ -130,6 +130,17 @@ logX=''
 	#We need MASS to dump the matrix to a file.
 	require(MASS)
 
+	if(logX=='true'){
+
+		#Make sure the column is numeric before trying to log it.
+		if(is.factor(finalData$X))
+		{
+			finalData$X <- as.numeric(levels(finalData$X)[as.numeric(finalData$X)]) 
+		}		
+
+		finalData$X=log(finalData$X)
+	}
+
 	#Write the final data file.
 	write.matrix(finalData,output.dataFile,sep = "\t")
 	print("-------------------")
