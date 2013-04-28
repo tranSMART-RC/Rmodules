@@ -16,25 +16,26 @@
 
 package com.recomdata.transmart.data.association.asynchronous
 
-import groovy.util.ConfigObject;
+import org.apache.commons.lang.StringUtils
+import org.codehaus.groovy.grails.commons.ApplicationHolder as AH
+import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import org.rosuda.REngine.REXP
+import org.rosuda.REngine.Rserve.RConnection
+import org.rosuda.REngine.Rserve.RserveException;
 
-import java.io.File;
-import java.lang.reflect.UndeclaredThrowableException;
+// import java.io.File;
+import java.lang.reflect.UndeclaredThrowableException
 
-import org.apache.commons.lang.StringUtils;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.rosuda.REngine.REXP;
-import org.rosuda.REngine.Rserve.*;
-import org.rosuda.Rserve.*;
-import org.codehaus.groovy.grails.commons.ApplicationHolder as AH
-import org.codehaus.groovy.grails.commons.ConfigurationHolder;
+import org.quartz.JobExecutionException
+import org.rosuda.Rserve.*
 
 class RModulesJobService implements Job {
 
     static transactional = true
-	static scope = 'request'
+	static scope = 'request'
+
 	def ctx = AH.application.mainContext
 	def springSecurityService = ctx.springSecurityService
 	def jobResultsService = ctx.jobResultsService
@@ -289,8 +290,9 @@ class RModulesJobService implements Job {
 		String workingDirectoryCommand = "setwd('${rOutputDirectory}')".replace("\\","\\\\")
 		
 		//Run the R command to set the working directory to our temp directory.
-		REXP x = c.eval(workingDirectoryCommand);
-		
+		// REXP x = c.eval(workingDirectoryCommand);
+        c.eval(workingDirectoryCommand);
+
 		//For each R step there is a list of commands.
 		stepList.each
 		{

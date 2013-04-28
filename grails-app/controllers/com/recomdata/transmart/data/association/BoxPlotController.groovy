@@ -15,8 +15,6 @@
 ******************************************************************/
 
 package com.recomdata.transmart.data.association
-import com.recomdata.transmart.util.ZipUtil
-import org.apache.commons.io.FileUtils
 
 class BoxPlotController {
 
@@ -28,7 +26,7 @@ class BoxPlotController {
 		def ArrayList<String> imageLinks = new ArrayList<String>()
 		
 		//This will be the array of text file locations.
-		def ArrayList<String> txtFiles = new ArrayList<String>()
+	//	def ArrayList<String> txtFiles = new ArrayList<String>()
 		
 		//Grab the job ID from the query string.
 		String jobName = params.jobName
@@ -272,7 +270,7 @@ class BoxPlotController {
 			//Split each line.
 			String[] strArray = it.split("\t");
 			
-			Integer cellCounter = 0;
+	//		Integer cellCounter = 0;
 			
 			strArray.each
 			{

@@ -15,7 +15,9 @@
 ******************************************************************/
 
 package com.recomdata.transmart.data.association
-import org.json.*
+
+import org.json.JSONArray
+import org.json.JSONObject
 
 class DataAssociationController {
 	

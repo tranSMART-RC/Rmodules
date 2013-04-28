@@ -15,9 +15,6 @@
 ******************************************************************/
 
 package com.recomdata.transmart.data.association
-import org.apache.commons.io.FileUtils
-
-import com.recomdata.transmart.util.ZipUtil
 
 class SurvivalAnalysisController {
 	
@@ -30,7 +27,7 @@ class SurvivalAnalysisController {
 		def ArrayList<String> imageLinks = new ArrayList<String>()
 		
 		//This will be the array of text file locations.
-		def ArrayList<String> txtFiles = new ArrayList<String>()
+	//	def ArrayList<String> txtFiles = new ArrayList<String>()
 		
 		//Grab the job ID from the query string.
 		String jobName = params.jobName
@@ -275,7 +272,7 @@ class SurvivalAnalysisController {
 			//Split each line.
 			String[] strArray = it.split("\t");
 			
-			Integer cellCounter = 0;
+	//		Integer cellCounter = 0;
 			
 			strArray.each
 			{

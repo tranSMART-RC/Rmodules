@@ -15,7 +15,7 @@
 ******************************************************************/
 
 package com.recomdata.transmart.data.association
-import java.util.ArrayList;
+// import java.util.ArrayList;
 
 class PCAController {
 
@@ -107,7 +107,7 @@ class PCAController {
 		
 		boolean firstLine = true
 		
-		def resultsItems = [:]
+		// def resultsItems = [:]
 		
 		//Start the table and add headers.
 		buf.append("<table class='AnalysisResults'>")

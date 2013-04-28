@@ -16,8 +16,6 @@
 
 package com.recomdata.transmart.data.association
 
-import com.recomdata.transmart.util.ZipUtil;
-
 class CorrelationAnalysisController {
 
 	//def jobResultsService
@@ -31,7 +29,7 @@ class CorrelationAnalysisController {
 		def ArrayList<String> imageLinks = new ArrayList<String>()
 		
 		//This will be the array of text file locations.
-		def ArrayList<String> txtFiles = new ArrayList<String>()
+	//	def ArrayList<String> txtFiles = new ArrayList<String>()
 		
 		//Grab the job ID from the query string.
 		String jobName = params.jobName
@@ -44,7 +42,7 @@ class CorrelationAnalysisController {
 		//Create a directory object so we can pass it to be traversed.
 		def tempDirectoryFile = new File(tempDirectory)
 		//These are the paths to our files.
-		String correlationLocation = "${tempDirectory}" + File.separator + "Correlation.txt"
+	//	String correlationLocation = "${tempDirectory}" + File.separator + "Correlation.txt"
 		String correlationData = RModulesOutputRenderService.fileParseLoop(tempDirectoryFile,/.*Correlation.*\.txt/,/.*Correlation(.*)\.txt/,parseCorrelationFile)
 
 		render(template: "/plugin/correlationAnalysis_out", model:[correlationData:correlationData,imageLocations:imageLinks,zipLocation:RModulesOutputRenderService.zipLink],contextPath:pluginContextPath)

@@ -16,7 +16,7 @@
 
 package com.recomdata.transmart.data.association
 
-import grails.test.*
+import grails.test.GrailsUnitTestCase
 
 class DataAssociationServiceTests extends GrailsUnitTestCase {
     protected void setUp() {
