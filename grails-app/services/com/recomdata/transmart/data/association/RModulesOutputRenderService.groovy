@@ -31,7 +31,7 @@ class RModulesOutputRenderService {
 	def tempFolderDirectory = config.RModules.tempFolderDirectory
 	
 	//This is a boolean indicating if we need to move the file before serving it to the user.
-	boolean transferImageFile = config.RModules.transferImageFile
+	final boolean transferImageFile = config.RModules.transferImageFile
 	
 	//This is the URL we use to serve the user the image.
 	def imageURL = config.RModules.imageURL

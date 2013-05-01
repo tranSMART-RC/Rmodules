@@ -18,6 +18,7 @@ package com.recomdata.transmart.data.association
 
 import org.json.JSONArray
 import org.json.JSONObject
+import org.codehaus.groovy.grails.commons.ApplicationHolder
 
 class DataAssociationController {
 	
@@ -37,24 +38,30 @@ class DataAssociationController {
 		def module = pluginService.findPluginModuleByModuleName(params.analysis)
 		render(view:"../plugin/"+module.formPage)
 	}
-	
-	def loadScripts = {
-		def scripts = [servletContext.contextPath+pluginContextPath+'/js/dataAssociation.js', 
-		servletContext.contextPath+pluginContextPath+'/js/PDFGenerator.js',
-		servletContext.contextPath+pluginContextPath+'/js/plugin/SurvivalAnalysis.js',
-		servletContext.contextPath+pluginContextPath+'/js/plugin/CorrelationAnalysis.js',
-		servletContext.contextPath+pluginContextPath+'/js/plugin/LineGraph.js',
-		servletContext.contextPath+pluginContextPath+'/js/plugin/ScatterPlot.js',
-		servletContext.contextPath+pluginContextPath+'/js/plugin/BoxPlot.js',
-		servletContext.contextPath+pluginContextPath+'/js/plugin/TableWithFisher.js',
-		servletContext.contextPath+pluginContextPath+'/js/plugin/Heatmap.js',
-		servletContext.contextPath+pluginContextPath+'/js/plugin/HClust.js',
-		servletContext.contextPath+pluginContextPath+'/js/plugin/KClust.js',
-		servletContext.contextPath+pluginContextPath+'/js/plugin/Waterfall.js',
-		servletContext.contextPath+pluginContextPath+'/js/plugin/BoxPlot.js',
-		servletContext.contextPath+pluginContextPath+'/js/plugin/IC50.js',
-		servletContext.contextPath+pluginContextPath+'/js/plugin/PCA.js',
-		servletContext.contextPath+pluginContextPath+'/js/plugin/MarkerSelection.js']
+
+
+
+    def loadScripts = {
+        def ctx = ApplicationHolder.application.mainContext.servletContext
+        // def contextPath = servletContext.contextPath
+        def contextPath = ctx.contextPath
+
+        def scripts = [contextPath+pluginContextPath+'/js/dataAssociation.js',
+		contextPath+pluginContextPath+'/js/PDFGenerator.js',
+		contextPath+pluginContextPath+'/js/plugin/SurvivalAnalysis.js',
+		contextPath+pluginContextPath+'/js/plugin/CorrelationAnalysis.js',
+		contextPath+pluginContextPath+'/js/plugin/LineGraph.js',
+		contextPath+pluginContextPath+'/js/plugin/ScatterPlot.js',
+		contextPath+pluginContextPath+'/js/plugin/BoxPlot.js',
+		contextPath+pluginContextPath+'/js/plugin/TableWithFisher.js',
+		contextPath+pluginContextPath+'/js/plugin/Heatmap.js',
+		contextPath+pluginContextPath+'/js/plugin/HClust.js',
+		contextPath+pluginContextPath+'/js/plugin/KClust.js',
+		contextPath+pluginContextPath+'/js/plugin/Waterfall.js',
+		contextPath+pluginContextPath+'/js/plugin/BoxPlot.js',
+		contextPath+pluginContextPath+'/js/plugin/IC50.js',
+		contextPath+pluginContextPath+'/js/plugin/PCA.js',
+		contextPath+pluginContextPath+'/js/plugin/MarkerSelection.js']
 		
 
 		

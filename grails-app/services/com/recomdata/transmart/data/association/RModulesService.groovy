@@ -21,6 +21,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.SimpleTrigger
+import org.codehaus.groovy.grails.web.json.JSONException
 
 class RModulesService {
 
@@ -172,7 +173,7 @@ class RModulesService {
 		try {
 			moduleMapStr = pluginService.convertStreamToString(textStream).replace('\n',' ')
 			moduleMap = new org.codehaus.groovy.grails.web.json.JSONObject(moduleMapStr) as Map
-		} catch (Exception e) {
+		} catch (JSONException e) {
 			log.error('Module '+params.analysis+' params could not be loaded', e)
 		}
 		
