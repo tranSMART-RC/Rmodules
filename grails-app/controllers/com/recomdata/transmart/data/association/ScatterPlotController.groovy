@@ -76,7 +76,7 @@ class ScatterPlotController {
 
 	}
 	
-	protected String parseLinearRegressionStr(String inStr) {
+	public String parseLinearRegressionStr(String inStr) {
 		StringBuffer buf = new StringBuffer();
 		
 		//We pull these variables out of the lines of the files.

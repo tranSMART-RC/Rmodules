@@ -27,4 +27,6 @@ class DataAssociationServiceTests extends GrailsUnitTestCase {
         super.tearDown()
     }
 
+    void testSomething() {
+    }
 }

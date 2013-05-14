@@ -46,7 +46,7 @@ class RModulesJobService implements Job {
 	def zipService = ctx.zipService
 	
 	def config = ConfigurationHolder.config
-	final String tempFolderDirectory = config.RModules.tempFolderDirectory
+	def String tempFolderDirectory = config.RModules.tempFolderDirectory
 	
 	def jobTmpParentDir
 	def jobTmpDirectory

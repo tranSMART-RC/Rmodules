@@ -105,7 +105,7 @@ class TableWithFisherController {
 		render(template: "/plugin/tableWithFisher_out", model:[countData:fisherTableCountData,statisticsData:fisherTableTestData,zipLink:RModulesOutputRenderService.zipLink], contextPath:pluginContextPath)
 	}
 	
-	protected String parseCountStr(String inStr) {
+	public String parseCountStr(String inStr) {
 		StringBuffer buf = new StringBuffer();
 		
 		//Create the opening table tag.
@@ -176,7 +176,7 @@ class TableWithFisherController {
 				
 	}
 	
-	protected String parseStatisticsString(String inStr)
+	public String parseStatisticsString(String inStr)
 	{
 		StringBuffer buf = new StringBuffer();
 
