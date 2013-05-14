@@ -15,7 +15,7 @@
 ******************************************************************/
 
 package com.recomdata.transmart.data.association
-// import java.util.ArrayList;
+import java.util.ArrayList;
 
 class ScatterPlotController {
 

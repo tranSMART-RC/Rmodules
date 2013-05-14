@@ -16,11 +16,13 @@
 
 package com.recomdata.transmart.data.association
 
-import com.recomdata.transmart.data.association.asynchronous.RModulesJobService
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import org.codehaus.groovy.grails.commons.ConfigurationHolder;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
-import org.quartz.SimpleTrigger
+import org.quartz.SimpleTrigger;
+
+import com.recomdata.transmart.data.association.asynchronous.RModulesJobService;
+
 
 class RModulesService {
 
@@ -51,7 +53,7 @@ class RModulesService {
 	 * @return
 	 */
 	def private setJobStatusList(params) {
-	//	def moduleName = params.jobType
+		def moduleName = params.jobType
 		//if (StringUtils.isNotEmpty(moduleName)) {
 		//	jobStatusList = config.RModules.'$moduleName'.statusList
 		//} else {

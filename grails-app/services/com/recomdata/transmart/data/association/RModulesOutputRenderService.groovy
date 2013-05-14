@@ -16,8 +16,10 @@
 
 package com.recomdata.transmart.data.association
 
-import org.apache.commons.io.FileUtils
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import org.apache.commons.io.FileUtils;
+import org.codehaus.groovy.grails.commons.ConfigurationHolder;
+
+import groovy.util.ConfigObject;
 
 class RModulesOutputRenderService {
 

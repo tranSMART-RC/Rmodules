@@ -15,7 +15,7 @@
 ******************************************************************/
 
 package com.recomdata.transmart.data.association
-// import java.util.ArrayList;
+import java.util.ArrayList;
 
 class MarkerSelectionController {
 
@@ -27,7 +27,7 @@ class MarkerSelectionController {
 		def ArrayList<String> imageLinks = new ArrayList<String>()
 		
 		//This will be the array of text file locations.
-	//	def ArrayList<String> txtFiles = new ArrayList<String>()
+		def ArrayList<String> txtFiles = new ArrayList<String>()
 		
 		//Grab the job ID from the query string.
 		String jobName = params.jobName
@@ -57,7 +57,7 @@ class MarkerSelectionController {
 		
 		boolean firstLine = true
 		
-	//	def resultsItems = [:]
+		def resultsItems = [:]
 		
 		String tableHeader = """\
 						<thead>
