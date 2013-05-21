@@ -37,7 +37,7 @@ LineGraph.loader <- function(
 	#Calculate NOD mean by for each CONCEPT_PATH in line.data
 	nodMeanByCPData <- ddply(line.data, .(CONCEPT_PATH),
 							 summarise,
-							 NODMEANBYCP	= mean(NOD)
+							 NODMEANBYCP	= mean(NOD, , na.rm = TRUE)
 	)
 
 	#Step2
