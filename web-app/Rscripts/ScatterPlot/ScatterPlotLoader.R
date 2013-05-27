@@ -170,7 +170,7 @@ ScatterPlot.loader <- function(
 			tmp <- tmp + aes(colour = GROUP.1) 
 			tmp <- tmp + aes(shape = GROUP.1) 
 			tmp <- tmp + scale_shape_manual(values=1:20)
-			tmp <- tmp + scale_colour_brewer("GROUP.1")
+			tmp <- tmp + scale_colour_brewer("GROUP.1", palette="Set1")
 			tmp <- tmp + scale_x_continuous(modifiedXAxisLabel) 
 			tmp <- tmp + scale_y_continuous(yAxisLabel)
 			
