@@ -38,6 +38,9 @@ continuous.concept = ""
 	#Add an empty bins column.
 	dataFrame$bins <- NA
 	
+	#unlist to fill if manual binning
+	splitTotalRangeString <- NA
+	
 	numberOfBins <- binning.bins
 	
 	if(!is.numeric(numberOfBins))
@@ -164,6 +167,7 @@ continuous.concept = ""
 			splitTotalRangeString <- strsplit(binning.binrangestring,"\\|");
 			splitTotalRangeString <- unlist(splitTotalRangeString);
 
+			j <-1
 			#Each entry is a bin.
 			for(currentBin in splitTotalRangeString)
 			{
@@ -178,8 +182,16 @@ continuous.concept = ""
 			  highRange <- as.numeric(str_extract(splitRange[3],"-?\\d*\\.?\\d*"))
 				
 			  #Assign everybody in this range to the current bin.
-			  dataFrame$bins[(dataFrame[[binningColumn]] > lowRange) & (dataFrame[[binningColumn]] <= highRange)] = binName
+			  #if this is the last bin, high range should be included
+			  if(j == length(splitTotalRangeString)){
+				  dataFrame$bins[(dataFrame[[binningColumn]] >= lowRange) & (dataFrame[[binningColumn]] <= highRange)] = binName
+				  dataFrame$bins[dataFrame$bins==paste('bin',j,sep='')] = paste(lowRange,' <= ',binningColumn,' <= ',highRange,sep="")	  
+			  }else{
+				  dataFrame$bins[(dataFrame[[binningColumn]] >= lowRange) & (dataFrame[[binningColumn]] < highRange)] = binName
+				  dataFrame$bins[dataFrame$bins==paste('bin',j,sep='')] = paste(lowRange,' <= ',binningColumn,' < ',highRange,sep="")
+			  }
 			  
+			  j <- j+1
 			}
 
 			#Remove anyone who is NA.
@@ -192,30 +204,8 @@ continuous.concept = ""
 	{
 		if(binning.manual)
 		{
-			#We need to rename the bins based on high/low of each group.
-			for(j in 1:numberOfBins)
-			{
-				#Find the lower value in this bin.
-				lowValue <- min(dataFrame[[binningColumn]][dataFrame$bins==paste('bin',j,sep='')])
-				
-				#Find out which bin we get the max from. Either the next one (Or this one if we are on last bin).
-				if(j==numberOfBins)
-				{
-					highValue <- max(dataFrame[[binningColumn]])
-					binUpperSymbol <- " <= "
-				}
-				else
-				{
-					highValue <- min(dataFrame[[binningColumn]][dataFrame$bins==paste('bin',j+1,sep='')])
-					binUpperSymbol <- " < "
-				}
-							
-				#Create the bin name.
-				binName <- paste(lowValue,' <= ',binningColumn,binUpperSymbol,highValue,sep="")		
-				
-				#Assign the bin name to this bin.
-				dataFrame$bins[dataFrame$bins==paste('bin',j,sep='')] = binName
-			}		
+			#already done before
+
 		}
 		else
 		{
