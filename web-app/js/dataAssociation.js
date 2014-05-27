@@ -72,7 +72,7 @@ function createAdvancedWorkflowMenu(result) {
                 hidden : false,
                 id : 'savetopdfbtn',
                 handler: function(){
-                    generatePdfFromHTML('dataAssociationBody', 'DataAssociation.pdf');
+                    generatePdfFromHTML('analysisBody', 'DataAssociation.pdf');
                 }
                     }
                 );
@@ -705,7 +705,7 @@ function loadCommonHighDimFormObjects(formParams, divName)
                         mrnaData = true;
 
         //Fix the platform to be something the R script expects.
-        //tempMarkerType = "MRNA"; // after this is commented out it seems does not affect the R script, however marker
+        tempMarkerType = "MRNA"; // after this is commented out it seems does not affect the R script, however marker
         // type needs to be aligned with what has been defined in the gpl info table
 
         formParams["gexpathway"]                = fullGEXGeneList;

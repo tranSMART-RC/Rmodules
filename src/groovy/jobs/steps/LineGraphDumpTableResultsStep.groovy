@@ -44,7 +44,6 @@ class LineGraphDumpTableResultsStep extends MultiRowAsGroupDumpTableResultsStep 
     protected createDecoratingIterator() {
         def expandingIterator = new TwoColumnExpandingMapIterator(
                 preResults, transformedColumnsIndexes)
-
         if (super.getHeaders()[-1] == 'DUMMY') {
             // last column is a map
             // in this case, we need to merge PLOT_GROUP with
@@ -55,10 +54,7 @@ class LineGraphDumpTableResultsStep extends MultiRowAsGroupDumpTableResultsStep 
             Iterators.transform(expandingIterator, { String[] array ->
                 assert array.length - 2 == transformedArray.length
 
-                if (array[plotGroupColumnIndex]) {
-                    array[plotGroupColumnIndex] += '_'
-                }
-                array[plotGroupColumnIndex] += array[plotSecondaryColumnIndex]
+                array[plotGroupColumnIndex] += '|' + array[plotSecondaryColumnIndex]
 
                 System.arraycopy(array, 0, transformedArray, 0,
                         transformedArray.length)
