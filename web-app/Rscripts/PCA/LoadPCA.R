@@ -124,6 +124,7 @@ max.pcs.to.show = 10
     f <- function(i,GENELISTLENGTH) {
         #Form the file name.
         currentFile <- paste('GENELIST',i,'.TXT',sep="")
+        currentWholeFile <- paste('GENELIST',i,'_whole','.TXT',sep="")
 
         #Create the current data frame from the gene names and value columns.
         currentData <- data.frame(rownames(rotationFrame),round(rotationFrame[,i],3))
@@ -133,9 +134,12 @@ max.pcs.to.show = 10
         #Reorder the genes based on decreasing absolute value of the value column.
         currentData <- currentData[order(abs(currentData$VALUE),decreasing = TRUE),]
 
+        currentData$GENE_SYMBOL <- groupValues[as.numeric(sub("^X","",currentData$GENE_SYMBOL))]
+        #write whole gene list
+        write.table(currentData,currentWholeFile,quote=F,sep="\t",row.names=F,col.names=F)
+
         #Pull only the records we are interested in.
         currentData <- currentData[1:GENELISTLENGTH,]
-        currentData$GENE_SYMBOL <- groupValues[as.numeric(sub("^X","",currentData$GENE_SYMBOL))]
 
         #Write the list to a file.
         write.table(currentData,currentFile,quote=F,sep="\t",row.names=F,col.names=F)
