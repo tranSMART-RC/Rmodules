@@ -41,6 +41,8 @@ abstract class AbstractAnalysisJob {
      *************************/
 
     File temporaryDirectory /* the workingDirectory */
+	
+    String rServeHost
 
 
     final void run() {

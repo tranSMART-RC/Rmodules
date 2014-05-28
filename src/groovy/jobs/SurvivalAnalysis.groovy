@@ -114,6 +114,7 @@ class SurvivalAnalysis extends AbstractAnalysisJob implements InitializingBean {
         steps << new RCommandsStep(
                 temporaryDirectory: temporaryDirectory,
                 scriptsDirectory: scriptsDirectory,
+                rServeHost: rServeHost,
                 rStatements: RStatements,
                 studyName: studyName,
                 params: params,

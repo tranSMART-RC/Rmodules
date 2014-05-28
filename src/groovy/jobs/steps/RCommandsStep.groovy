@@ -18,6 +18,7 @@ class RCommandsStep implements Step {
     UserParameters params
     List<String> rStatements
     String studyName /* see comment on AbstractAnalysisJob::studyName */
+    String rServeHost
 
     /**
      * This map allows us to pass information that is only available later on
@@ -31,7 +32,7 @@ class RCommandsStep implements Step {
 
     final private void runRCommandList(List<String> stepList) {
         //Establish a connection to R Server.
-        RConnection rConnection = new RConnection()
+        RConnection rConnection = new RConnection(rServeHost)
 
         try {
             //Run the R command to set the working directory to our temp directory.

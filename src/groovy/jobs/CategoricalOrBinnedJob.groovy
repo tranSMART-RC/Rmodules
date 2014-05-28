@@ -45,6 +45,7 @@ abstract class CategoricalOrBinnedJob extends AbstractAnalysisJob implements Ini
         steps << new RCommandsStep(
                 temporaryDirectory: temporaryDirectory,
                 scriptsDirectory: scriptsDirectory,
+                rServeHost: rServeHost,
                 rStatements: RStatements,
                 studyName: studyName,
                 params: params,

@@ -283,7 +283,9 @@ class RModulesJobService implements Job {
 		new File(rOutputDirectory).mkdir()
 
 		//Establish a connection to R Server.
-		RConnection c = new RConnection();
+		String rServeHost = "localhost"
+		if(Holders.config.org.transmart.rServeHost) rServeHost = Holders.config.org.transmart.rServeHost
+		RConnection c = new RConnection(rServeHost);
         c.setStringEncoding("utf8")
 
         //Set the working directory to be our temporary location.
