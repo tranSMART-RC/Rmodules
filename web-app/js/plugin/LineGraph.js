@@ -104,6 +104,13 @@ LineGraphView.prototype.get_form_params = function (form) {
         Ext.Msg.alert('Missing input!', 'Please drag at least one concept into the time/measurements variable box.');
         return;
     }
+    
+    //If binning is enabled, we are doing categorical and the manual binning checkbox is not checked, alert the user.
+    if(_isCategorical(groupByNodeList) && !GLOBAL.ManualBinning)
+    {
+        Ext.Msg.alert('Wrong input', 'You must enable manual binning when binning a categorical variable.');
+        return;
+    }
 
     var formParams = {
         dependentVariable: dependentVariableConceptCode,
@@ -182,7 +189,7 @@ LineGraphView.prototype.update_manual_binning = function () {
         } else {
             divContinuous.hide();
             divCategorical.show();
-            setupCategoricalItemsList("divCategoryVariable","divCategoricalItems");
+            setupCategoricalItemsList("divGroupByVariable","divCategoricalItems");
         }
     }
 }
