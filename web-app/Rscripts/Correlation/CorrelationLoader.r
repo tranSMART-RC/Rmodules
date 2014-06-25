@@ -18,7 +18,7 @@ Correlation.loader <- function(
 	#that is the chance of getting a value of the correlation as far
 	#from zero in absolute value or more so as the one you got...
 	
-	cor.pvalue <- function(X,method="pearson", use="complete" ) 
+	cor.pvalue <- function(X,method="pearson", use="pairwise.complete.obs" ) 
 	{
 		dfr = nrow(X) - 2
 		R <- cor(X,method=method, use= use)
@@ -52,7 +52,7 @@ Correlation.loader <- function(
 		{
 			usr <- par("usr"); on.exit(par(usr))
 			par(usr = c(0, 1, 0, 1))
-			r <- abs(cor(x, y, method = correlation.method))
+			r <- abs(cor(x, y, method = correlation.method, use="pairwise.complete.obs"))
 			txt <- format(c(r, 0.123456789), digits=digits)[1]
 			txt <- paste(prefix, txt, sep="")
 			if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
