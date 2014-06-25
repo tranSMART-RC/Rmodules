@@ -30,8 +30,8 @@
         </fieldset>
 
         <fieldset class="toolFields">
-            <div>
-                <input type="checkbox" id="chkUseExperimentAsVariable" name="doUseExperimentAsVariable">
+            <div style="display:none">
+                <input type="checkbox" id="chkUseExperimentAsVariable" name="doUseExperimentAsVariable" >
                 <span>Use experiment/node as variable instead of probe (multiple nodes only)</span>
             </div>
             <input type="button" value="Run" onClick="pcaView.submit_job(this.form);" class="runAnalysisBtn">
