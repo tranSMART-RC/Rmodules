@@ -106,7 +106,7 @@ LineGraphView.prototype.get_form_params = function (form) {
     }
     
     //If binning is enabled, we are doing categorical and the manual binning checkbox is not checked, alert the user.
-    if(_isCategorical(groupByNodeList) && !GLOBAL.ManualBinning)
+    if(GLOBAL.Binning && _isCategorical(groupByNodeList) && !GLOBAL.ManualBinning)
     {
         Ext.Msg.alert('Wrong input', 'You must enable manual binning when binning a categorical variable.');
         return;
