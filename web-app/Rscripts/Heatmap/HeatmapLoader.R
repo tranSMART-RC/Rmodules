@@ -136,15 +136,15 @@ plotHeatmap <- function(data, colcolors, color.range.clamps, output.file = "Heat
     require(gplots)
 
     pxPerCell <- 15
-    hmPars <- list(pointSize = pxPerCell / 1, labelPointSize = pxPerCell / 9)
-    if (nrow(data) < 30 || ncol(data) < 30) {
+    maxResolution <- 28000
+    hmPars <- list(pointSize = pxPerCell / 1, labelPointSize = pxPerCell / 10)
+    if ((nrow(data) < 30 || ncol(data) < 30) && nrow(data)*40 < maxResolution) {
         pxPerCell <- 40
         hmPars <- list(pointSize = pxPerCell / 5, labelPointSize = pxPerCell / 10)
     }
 
-    maxResolution <- 30000
     if (nrow(data) > ncol(data) && nrow(data)*pxPerCell > maxResolution) {
-        pxPerCell <- maxResolution/nrow(data)
+        pxPerCell <- min(15, maxResolution/nrow(data))
         hmPars <- list(pointSize = pxPerCell / 1, labelPointSize = pxPerCell / 9)
     } else if (ncol(data)*pxPerCell > maxResolution) {
         pxPerCell <- maxResolution/ncol(data)
