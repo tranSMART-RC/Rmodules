@@ -26,8 +26,25 @@ class OpenHighDimensionalDataStep implements Step {
         try {
             List<String> ontologyTerms = extractOntologyTerms()
             extractPatientSets().eachWithIndex { resultInstanceId, index ->
+                boolean useParentLabel=false
+                def parentLabel = ""
+                for(def ontologyTerm in ontologyTerms){
+                    if(parentLabel == ""){
+                        parentLabel = ontologyTerm.split('\\\\')[-2]
+                    } else {
+                        if(ontologyTerm.split('\\\\')[-2] != parentLabel){
+                            useParentLabel = true
+                            break
+                        }
+                    }
+                }
                 ontologyTerms.each { ontologyTerm ->
-                    String seriesLabel = ontologyTerm.split('\\\\')[-1]
+                    String seriesLabel = ""
+                    if(useParentLabel){
+                        seriesLabel = ontologyTerm.split('\\\\')[-2] + "_" + ontologyTerm.split('\\\\')[-1]
+                    } else {
+                        seriesLabel = ontologyTerm.split('\\\\')[-1]
+                    }
                     List<String> keyList = ["S" + (index + 1), seriesLabel]
                     TabularResult res = fetchSubset(resultInstanceId, ontologyTerm)
                     if(res != null) results[keyList] = res 
